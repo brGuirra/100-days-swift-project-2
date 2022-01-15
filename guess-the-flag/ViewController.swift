@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         
@@ -31,9 +30,9 @@ class ViewController: UIViewController {
         button2.layer.borderColor = UIColor.lightGray.cgColor
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score: \(score)", style: UIBarButtonItem.Style.plain , target: self, action: #selector(shareScore))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score: \(score)", style: .plain, target: nil, action: nil)
         
-        askQuestion()
+        starGame()
     }
     
     // Receive a UIAlertAction because it's used as a handler
@@ -47,49 +46,52 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
+        title = countries[correctAnswer].uppercased()
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
         questionsAnswered += 1
         
+        var acTitle: String
+        
+        // An unique tag was set to each button
+        // in Storyboard to match the correct answser
+        if sender.tag == correctAnswer {
+            acTitle = "Correct"
+            score += 1
+            navigationItem.rightBarButtonItem?.title = "Score: \(score)"
+        } else {
+            score -= 1
+            let flagName = countries[correctAnswer].uppercased()
+            acTitle = "Wrong! That's the flag of \(flagName)"
+            navigationItem.rightBarButtonItem?.title = "Score: \(score)"
+        }
+        
+        
         if (questionsAnswered < 10) {
-            // An unique tag was set to each button
-            // in Storyboard to match the correct answser
-            if sender.tag == correctAnswer {
-                title = "Correct"
-                score += 1
-                navigationItem.rightBarButtonItem?.title = "Score: \(score)"
-            } else {
-                let flagName = countries[correctAnswer].capitalized
-                title = "Wrong! That's the flag of \(flagName)"
-                navigationItem.rightBarButtonItem?.title = "Score: \(score)"
-            }
-            
-            let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
+            let ac = UIAlertController(title: acTitle, message: "Your score is \(score)", preferredStyle: .alert)
             
             ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
             
             // Animate the alert
             present(ac, animated: true)
         } else {
-            questionsAnswered = 0
             let ac = UIAlertController(title: "Game finished", message: "Your score is \(score)", preferredStyle: .alert)
             
-            ac.addAction(UIAlertAction(title: "Play again", style: .default, handler: askQuestion))
+            ac.addAction(UIAlertAction(title: "Play again", style: .default, handler: starGame))
             
             // Animate the alert
             present(ac, animated: true)
         }
     }
     
-    @objc func shareScore() {
-        let message = "My score in Guess the Flags: \(score)"
+    func starGame(action: UIAlertAction! = nil) {
+        score = 0
+        questionsAnswered = 0
         
-        let vc = UIActivityViewController(activityItems: [message], applicationActivities: [])
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(vc, animated: true)
+        navigationItem.rightBarButtonItem?.title = "Score: \(score)"
+        askQuestion()
     }
-    
 }
 
 //extension UINavigationItem {

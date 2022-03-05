@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3DAD925827D2DC8300D8DA84 /* HighestScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAD925727D2DC8300D8DA84 /* HighestScore.swift */; };
 		3DC0EA4F2781FE3300068AC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0EA4E2781FE3300068AC3 /* AppDelegate.swift */; };
 		3DC0EA512781FE3300068AC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0EA502781FE3300068AC3 /* SceneDelegate.swift */; };
 		3DC0EA532781FE3300068AC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0EA522781FE3300068AC3 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3DAD925727D2DC8300D8DA84 /* HighestScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighestScore.swift; sourceTree = "<group>"; };
 		3DC0EA4B2781FE3300068AC3 /* guess-the-flag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "guess-the-flag.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC0EA4E2781FE3300068AC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DC0EA502781FE3300068AC3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				3DC0EA572781FE3400068AC3 /* Assets.xcassets */,
 				3DC0EA592781FE3400068AC3 /* LaunchScreen.storyboard */,
 				3DC0EA5C2781FE3400068AC3 /* Info.plist */,
+				3DAD925727D2DC8300D8DA84 /* HighestScore.swift */,
 			);
 			path = "guess-the-flag";
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC0EA532781FE3300068AC3 /* ViewController.swift in Sources */,
+				3DAD925827D2DC8300D8DA84 /* HighestScore.swift in Sources */,
 				3DC0EA4F2781FE3300068AC3 /* AppDelegate.swift in Sources */,
 				3DC0EA512781FE3300068AC3 /* SceneDelegate.swift in Sources */,
 			);

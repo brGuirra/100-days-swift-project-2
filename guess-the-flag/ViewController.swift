@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var score = 0
     var correctAnswer = 0
     var questionsAnswered = 0
+    var highestScore = HighestScore(value: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,18 @@ class ViewController: UIViewController {
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score: \(score)", style: .plain, target: nil, action: nil)
+        
+        let defaults = UserDefaults.standard
+        
+        if let savedData = defaults.object(forKey: "highestScore") as? Data {
+            let decoder = JSONDecoder()
+            
+            do {
+                highestScore = try decoder.decode(HighestScore.self, from: savedData)
+            } catch {
+                print("Failed loading highest score.")
+            }
+        }
         
         starGame()
     }
@@ -76,7 +89,17 @@ class ViewController: UIViewController {
             // Animate the alert
             present(ac, animated: true)
         } else {
-            let ac = UIAlertController(title: "Game finished", message: "Your score is \(score)", preferredStyle: .alert)
+            var message: String
+            
+            if score > highestScore.value {
+                highestScore = HighestScore(value: score)
+                save()
+                message = "Congratulations, you broke your previous record!"
+            } else {
+                message = "Your score is \(score)"
+            }
+            
+            let ac = UIAlertController(title: "Game finished", message: message, preferredStyle: .alert)
             
             ac.addAction(UIAlertAction(title: "Play again", style: .default, handler: starGame))
             
@@ -91,6 +114,18 @@ class ViewController: UIViewController {
         
         navigationItem.rightBarButtonItem?.title = "Score: \(score)"
         askQuestion()
+    }
+    
+    func save() {
+        let enconder = JSONEncoder()
+        
+        if let savedData = try? enconder.encode(highestScore) {
+            let defaults = UserDefaults.standard
+            
+            defaults.set(savedData, forKey: "highestScore")
+        } else {
+            print("Failed saving highest score.")
+        }
     }
 }
 
